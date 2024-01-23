@@ -1,0 +1,16 @@
+{% load static %}
+
+<div class="row justify-content-center align-item-center">
+    <div class="col-md-5">
+        <img class="image-fluid" src="{% static 'img/no-result.jpg' %}" style="width: 420px;" alt="no-result">
+    </div>
+</div>
+
+<div class="more-product">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h5 class="mb-3">Sorry, No Products Here !</h5>
+            <a href="{% url 'store:Home' %}" class="primary-btn">Go Back</a>
+        </div>
+    </div>
+</div>

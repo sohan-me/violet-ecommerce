@@ -1,0 +1,15 @@
+<div class="cf-right">
+    <span>{{ p_count }} Products</span>
+    
+    {% if products.has_previous %}
+        <a href="?page={{ products.previous_page_number }}"><</a>
+    {% endif %}
+    
+    {% for i in products.paginator.page_range %}
+        <a href="?page={{ i }}" {% if products.number == i %}class="active"{% endif %}>{{ i }}</a>
+    {% endfor %}
+    
+    {% if products.has_next %}
+        <a href="?page={{ products.next_page_number }}">></a>
+    {% endif %}
+</div>

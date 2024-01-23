@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{product.title}} {% endblock %}
+
+
+{% block content %}
+    
+    
+    <!-- Page Add Section Begin -->
+    <section class="page-add">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="page-breadcrumb">
+                        <h2>Shirts<span>.</span></h2>
+                        <a href="#">Home</a>
+                        <a href="#">Dresses</a>
+                        <a class="active" href="#">Night Dresses</a>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <img src="{% static 'img/add.jpg' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Page Add Section End -->
+
+    <!-- Product Page Section Beign -->
+    <section class="product-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="product-slider owl-carousel">
+                        <div class="product-img" style="width: 80%;">
+                            <figure>
+                                <img style="height: 380px;" src="{{product.thumbnail}}" alt="">
+                                {% if product.featured %} <div class="p-status"> Featured </div> {% endif %}
+                            </figure>
+                        </div>
+                       
+                    </div>
+                    
+                </div>
+                <div class="col-lg-6">
+                    <div class="product-content">
+                        <h2>{{product.title}}</h2>
+                        <div class="pc-meta">
+                            <h5>${{product.price}}</h5>
+                            {% if product.is_stock %}
+                            <div class="p-status">
+                                In Stock
+                            </div>
+                            {% else %}
+                            <div class="p-status mb-2" >
+                                Out of Stock
+                            </div>
+                            {% endif %}
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <p>{{product.description}}</p>
+                        <ul class="tags">
+                            <li><span>Category :</span> {{product.category|title}}</li>
+                        </ul>
+
+                        {% if product.is_stock %}
+            
+                        <form method="POST" action="{% url 'cart:add_to_cart' product.id %}">
+                            {% csrf_token %}
+                            <div class="product-quantity">
+                                <div class="pro-qty">
+                                    <input type="number" name="quantity" value="1" min="1">
+                                </div>
+                            </div>
+                            {% if product.is_stock %}
+                                <button type="submit" class="primary-btn pc-btn">Add to cart</button>
+                            {% else %}
+                                <button type="button" class="primary-btn pc-btn" disabled>Out of stock</button>
+                            {% endif %}
+                        </form>
+                        {% endif %}
+                        <ul class="p-info">
+                            <li>Product Information</li>
+                            <li>Reviews</li>
+                            <li>Product Care</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Page Section End -->
+
+    <!-- Related Product Section Begin -->
+    <section class="related-product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title">
+                        <h2>Related Products</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                {% for r_product in relatable_product %}
+                <div class="col-lg-3 col-sm-6">
+                    <div class="single-product-item">
+                        <figure>
+                            <a href="{% url 'store:Product_Details' r_product.slug %}"><img src="{{r_product.thumbnail}}" style="height: 300px;" alt=""></a>
+                            {% if r_product.featured %} <div class="p-status"> Featured </div> {% endif %}
+                        </figure>
+                        <div class="product-text">
+                            <h6>{{r_product.title|truncatewords:6}}</h6>
+                            <p>${{r_product.price}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+    </section>
+    <!-- Related Product Section End -->
+
+
+    {% endblock %}

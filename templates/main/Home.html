@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+{% include 'includes/slider.html' %}
+
+
+<!-- Latest Category Begin -->
+<section class="latest-products spad mt-3">
+    <div class="container">
+        <div class="product-filter">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title">
+                        <h2>Featured Categories</h2>
+                    </div>
+                    <ul class="product-controls">
+                        <li data-filter="*">All</li>
+                        {% for category in categories %}
+                        <li data-filter=".{{category.slug}}">{{category.title|title}}</li>
+                         {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" id="product-list">     
+                {% for category in categories %}
+                {% for product in category.products.all %}
+                <div class="col-lg-3 col-sm-6 mix {{category.slug}}">
+                <div class="single-product-item">
+                    <figure>
+                        <a href="{% url 'store:Product_Details' product.slug %}"><img style="height: 250px; width: 250px;" src="{{product.thumbnail}}" alt=""></a>
+                    </figure>
+                    <div class="product-text">
+                        <h6>{{product.title|truncatewords:6}}</h6>
+                        <p>${{product.price}}</p>
+                    </div>
+                </div>
+                </div>
+
+                {% endfor %}
+                {% endfor %}
+           
+        </div>
+          
+ 
+
+    </div>
+</section>
+<!-- Latest Category End -->
+
+<!-- Latest Product Begin -->
+<section class="latest-products spad">
+    <div class="container">
+        <div class="product-filter">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="section-title">
+                        <h2>Featured Products</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row" id="product-list">     
+                {% for product in featured_products %}
+                <div class="col-lg-3 col-sm-6 mix">
+                <div class="single-product-item">
+                    <figure>
+                        <a href="#"><img style="height: 250px; width: 250px;" src="{{product.thumbnail}}" alt=""></a>
+                        <div class="p-status">{{product.category}}</div>
+                    </figure>
+                    <div class="product-text">
+                        <h6>{{product.title|truncatewords:6}}</h6>
+                        <p>${{product.price}}</p>
+                    </div>
+                </div>
+                </div>
+
+                {% endfor %}
+        </div>
+
+
+    </div>
+</section>
+<!-- Latest Product End -->
+
+<!-- Features Section Begin -->
+<section class="features-section spad">
+    <div class="features-ads">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="single-features-ads first">
+                        <img src="{% static 'img/icons/f-delivery.png' %}" alt="">
+                        <h4>Free shipping</h4>
+                        <p>Fusce urna quam, euismod sit amet mollis quis, vestibulum quis velit. Vesti bulum mal
+                            esuada aliquet libero viverra cursus. </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-features-ads second">
+                        <img src="{% static 'img/icons/coin.png' %}" alt="">
+                        <h4>100% Money back </h4>
+                        <p>Urna quam, euismod sit amet mollis quis, vestibulum quis velit. Vesti bulum mal esuada
+                            aliquet libero viverra cursus. </p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="single-features-ads">
+                        <img src="{% static 'img/icons/chat.png' %}" alt="">
+                        <h4>Online support 24/7</h4>
+                        <p>Urna quam, euismod sit amet mollis quis, vestibulum quis velit. Vesti bulum mal esuada
+                            aliquet libero viverra cursus. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Features Section End -->
+
+
+<!-- Lookbok Section Begin -->
+<section class="lookbok-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4 offset-lg-1">
+                <div class="lookbok-left">
+                    <div class="section-title">
+                        <h2>2019 <br />#lookbook</h2>
+                    </div>
+                    <p>Fusce urna quam, euismod sit amet mollis quis, vestibulum quis velit. Vestibulum malesuada
+                        aliquet libero viverra cursus. Aliquam erat volutpat. Morbi id dictum quam, ut commodo
+                        lorem. In at nisi nec arcu porttitor aliquet vitae at dui. Sed sollicitudin nulla non leo
+                        viverra scelerisque. Phasellus facilisis lobortis metus, sit amet viverra lectus finibus ac.
+                        Aenean non felis dapibus, placerat libero auctor, ornare ante. Morbi quis ex eleifend,
+                        sodales nulla vitae, scelerisque ante. Nunc id vulputate dui. Suspendisse consectetur rutrum
+                        metus nec scelerisque. s</p>
+                    <a href="#" class="primary-btn look-btn">See More</a>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <div class="lookbok-pic">
+                    <img src="{% static 'img/lookbok.jpg' %}" alt="">
+                    <div class="pic-text">fashion</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Lookbok Section End -->
+
+
+
+
+{% endblock %}
