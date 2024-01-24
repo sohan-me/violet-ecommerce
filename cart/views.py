@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from store.models import Product
-from .models import Cart, CartItem
+from .models import Cart, CartItem, Coupon
+from django.utils import timezone
 # Create your views here.
 
 def _cart_id(request):
@@ -68,6 +69,12 @@ def Add_To_Cart(request, product_id):
 def View_Cart(request):
     current_user = request.user
     cart_items = None
+
+    try:
+        cart = Cart.objects.get(cart_id=_cart_id(request))
+    except:
+        cart = Cart.objects.create(cart_id=_cart_id(request))
+
     if current_user.is_authenticated:
         cart_items = CartItem.objects.filter(user=current_user, is_active=True)
     else:
@@ -81,11 +88,16 @@ def View_Cart(request):
     cart_total = 0
     sub_total = 0
     shipping_cost = 10
+
     for item in cart_items:
         sub_total += float(item.product.price * item.quantity)
     cart_total += shipping_cost + sub_total
-        
-    context = {'cart_items':cart_items, 'cart_total':cart_total, 'sub_total':sub_total}
+    
+    if cart.coupon:
+        discount_amount = ((cart_total / 100.00 ) * float(cart.coupon.discount))
+        cart_total =cart_total - discount_amount
+        print(discount_amount)
+    context = {'cart_items':cart_items, 'cart_total':cart_total, 'sub_total':sub_total, 'cart_coupon': cart.coupon, 'discount_amount': discount_amount}
 
     return render(request, 'cart/shopping-cart.html', context)
 
@@ -99,14 +111,34 @@ def Clear_Cart(request):
             cart = Cart.objects.get(cart_id=_cart_id(request))
             cart.delete()
         except:
-            cart = Cart.objects.get(cart_id=_cart_id(request))
+            cart = Cart.objects.create(cart_id=_cart_id(request))
             cart.delete()
 
     return redirect('cart:view_cart')
 
 
 def Update_Cart(request):
+    current_time = timezone.now().date()
+
     if request.method == 'POST':
+        coupon_code = request.POST.get('coupon_code')
+        coupon = Coupon.objects.get(code=coupon_code)
+
+        if coupon.expiry_date > current_time:
+            try:
+                cart = Cart.objects.get(cart_id=_cart_id(request))
+                cart.coupon = coupon
+                cart.save()
+            except:
+                cart = Cart.objects.create(cart_id=_cart_id(request))
+                cart.coupon = coupon
+                cart.save()
+
+        if coupon.active_date > current_time:
+            return redirect('cart:view_cart')
+
+
+    else:
         for key, value in request.POST.items():
             if key.startswith('quantity_'):
                 cart_item_id = key.replace('quantity_', '')
@@ -124,3 +156,4 @@ def Cart_Item_Remove(request, cart_item_id):
     cart_item = get_object_or_404(CartItem, pk=cart_item_id)
     cart_item.delete()
     return redirect('cart:view_cart')
+

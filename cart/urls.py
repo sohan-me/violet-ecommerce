@@ -9,5 +9,5 @@ urlpatterns = [
     path('clear-cart/', views.Clear_Cart, name='clear_cart'),
     path('update-cart/', views.Update_Cart, name='update_cart'),
     path('cart-item-remove/<int:cart_item_id>/', views.Cart_Item_Remove, name='cart_item_remove'),
-    
+
 ]
