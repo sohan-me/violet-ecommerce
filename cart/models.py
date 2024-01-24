@@ -1,6 +1,7 @@
 from django.db import models
 from store.models import Product
 from django.contrib.auth.models import User
+from django.utils import timezone
 # Create your models here.
 
 
@@ -15,6 +16,11 @@ class Coupon(models.Model):
 
     def __str__(self):
         return self.code
+
+    def clean(self):
+        current_time = timezone.now().date()
+        if self.expiry_date < current_time and self.active_date > current_time:
+            self.active = False 
 
 
 class Cart(models.Model):

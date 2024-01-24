@@ -73,9 +73,15 @@
                 <div class="row">
                     <div class="col-lg-6">
                         {% if cart_coupon %}
+                        {% if cart_coupon.active %}
                         <div class="coupon-input">
                             <input type="text" placeholder="{{cart_coupon}}" name="coupon_code" disabled>
                         </div>
+                        {% else %}
+                        <div class="coupon-input">
+                            <input type="text" placeholder="{{cart_coupon}} -- expired" name="coupon_code" disabled>
+                        </div>
+                        {% endif %}
                         {% else %}
                         <div class="coupon-input">
                             <input type="text" placeholder="Enter cupone code" name="coupon_code">

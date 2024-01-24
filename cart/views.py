@@ -92,12 +92,13 @@ def View_Cart(request):
     for item in cart_items:
         sub_total += float(item.product.price * item.quantity)
     cart_total += shipping_cost + sub_total
-    
-    if cart.coupon:
+
+    if cart.coupon and cart.coupon.active:
         discount_amount = ((cart_total / 100.00 ) * float(cart.coupon.discount))
         cart_total =cart_total - discount_amount
-        print(discount_amount)
-    context = {'cart_items':cart_items, 'cart_total':cart_total, 'sub_total':sub_total, 'cart_coupon': cart.coupon, 'discount_amount': discount_amount}
+    else:
+        discount_amount = 0
+    context = {'cart_items':cart_items, 'cart_total':cart_total, 'sub_total':sub_total, 'cart_coupon': cart.coupon}
 
     return render(request, 'cart/shopping-cart.html', context)
 
@@ -124,7 +125,7 @@ def Update_Cart(request):
         coupon_code = request.POST.get('coupon_code')
         coupon = Coupon.objects.get(code=coupon_code)
 
-        if coupon.expiry_date > current_time:
+        if coupon.expiry_date > current_time and coupon.active:
             try:
                 cart = Cart.objects.get(cart_id=_cart_id(request))
                 cart.coupon = coupon
