@@ -9,16 +9,25 @@
             </div>
             <div class="header-right">
                 <img src="{% static 'img/icons/search.png' %}" alt="" class="search-trigger">
-                <img src="{% static 'img/icons/man.png' %}" alt="">
+                <a href="{% url 'accounts:dashboard' %}" style="margin-right: 20px;">
+                    <img src="{% static 'img/icons/man.png' %}" alt="">
+                </a>
                 <a href="{% url 'cart:view_cart' %}">
                     <img src="{% static 'img/icons/bag.png' %}" alt="">
                     <span>{% if cart_count %} {{cart_count}} {% else %} 0 {% endif %}</span>
                 </a>
             </div>
+            {% if user.is_authenticated %}
             <div class="user-access">
-                <a href="#">Register</a>
-                <a href="#" class="in">Sign in</a>
+                <a href="{% url 'accounts:logout' %}">Logout</a>
             </div>
+            {% else %}
+            <div class="user-access">
+                <a href="{% url 'accounts:signup' %}">Register</a>
+                <a href="{% url 'accounts:login' %}" class="in">Sign in</a>
+            </div>
+            {% endif %}
+           
             <nav class="main-menu mobile-menu">
                 <ul>
                     <li><a class="active" href="{% url 'store:Home' %}">Home</a></li>

@@ -105,8 +105,9 @@ def View_Cart(request):
 
 def Clear_Cart(request):
     if request.user.is_authenticated:
-        cart = Cart.objects.get(cart_id=_cart_id(request))
-        cart.delete()
+        cart_items = CartItem.objects.filter(user=request.user)
+        for cart_item in cart_items:
+            cart_item.delete()
     else:
         try:
             cart = Cart.objects.get(cart_id=_cart_id(request))
@@ -123,23 +124,25 @@ def Update_Cart(request):
 
     if request.method == 'POST':
         coupon_code = request.POST.get('coupon_code')
-        coupon = Coupon.objects.get(code=coupon_code)
+        try:
+            coupon = Coupon.objects.get(code=coupon_code)
+        except:
+            coupon = None
+        if coupon is not None:
+            if coupon.expiry_date > current_time and coupon.active:
+                try:
+                    cart = Cart.objects.get(cart_id=_cart_id(request))
+                    cart.coupon = coupon
+                    cart.save()
+                except:
+                    cart = Cart.objects.create(cart_id=_cart_id(request))
+                    cart.coupon = coupon
+                    cart.save()
 
-        if coupon.expiry_date > current_time and coupon.active:
-            try:
-                cart = Cart.objects.get(cart_id=_cart_id(request))
-                cart.coupon = coupon
-                cart.save()
-            except:
-                cart = Cart.objects.create(cart_id=_cart_id(request))
-                cart.coupon = coupon
-                cart.save()
-
-        if coupon.active_date > current_time:
-            return redirect('cart:view_cart')
+            if coupon.active_date > current_time:
+                return redirect('cart:view_cart')
 
 
-    else:
         for key, value in request.POST.items():
             if key.startswith('quantity_'):
                 cart_item_id = key.replace('quantity_', '')
