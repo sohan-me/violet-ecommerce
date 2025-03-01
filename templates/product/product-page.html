@@ -34,7 +34,7 @@
                     <div class="product-slider owl-carousel">
                         <div class="product-img" style="width: 80%;">
                             <figure>
-                                <img style="height: 380px;" src="{{product.thumbnail}}" alt="">
+                                <img style="height: 380px;" src="{{product.image.url}}" alt="">
                                 {% if product.featured %} <div class="p-status"> Featured </div> {% endif %}
                             </figure>
                         </div>
@@ -113,7 +113,7 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="single-product-item">
                         <figure>
-                            <a href="{% url 'store:Product_Details' r_product.slug %}"><img src="{{r_product.thumbnail}}" style="height: 300px;" alt=""></a>
+                            <a href="{% url 'store:Product_Details' r_product.slug %}"><img src="{{r_product.image.url}}" style="height: 300px;" alt=""></a>
                             {% if r_product.featured %} <div class="p-status"> Featured </div> {% endif %}
                         </figure>
                         <div class="product-text">

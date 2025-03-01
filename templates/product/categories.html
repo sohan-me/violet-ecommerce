@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Categories {% endblock %}
+{% block title %} {{category.title|title}} {% endblock %}
 
 {% block content %}
 
@@ -13,7 +13,7 @@
                     <div class="page-breadcrumb">
                         <h2>{{category.title|title}}<span>.</span></h2>
                         <a href="{% url 'store:Home' %}">Home</a>
-                        <a class="active" href="{% url 'store:Category_Details' category.slug %}">Category-{{category.slug|title}}</a>
+                        <a class="active" href="{% url 'store:Category_Details' category.slug %}">Category/ {{category.slug|title}}</a>
                     </div>
                 </div>
                 <div class="col-lg-8">
@@ -48,12 +48,12 @@
                 <div class="col-lg-3 col-md-3">
                     <div class="single-product-item">
                         <figure>
-                            <img src="{{product.thumbnail}}" alt="" style="height: 250px; width: 250px;">
+                            <img src="{{product.image.url}}" alt="" style="height: 250px; width: 250px;">
                             {% if product.featured %}
                             <div class="p-status">Featured</div>
                             {% endif %}
                             <div class="hover-icon">
-                                <a href="{{product.thumbnail}}" class="pop-up"><img src="{% static 'img/icons/zoom-plus.png' %}"
+                                <a href="{{product.image.url}}" class="pop-up"><img src="{% static 'img/icons/zoom-plus.png' %}"
                                         alt=""></a>
                             </div>
                         </figure>

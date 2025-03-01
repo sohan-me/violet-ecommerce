@@ -26,10 +26,10 @@
             <div class="col-lg-3 col-md-3">
                 <div class="single-product-item">
                     <figure>
-                        <img src="{{product.thumbnail}}" alt="" style="height: 250px; width: 250px;">
+                        <img src="{{product.image.url}}" alt="" style="height: 250px; width: 250px;">
                         <div class="p-status">{{product.category}}</div>
                         <div class="hover-icon">
-                            <a href="{{product.thumbnail}}" class="pop-up"><img src="{% static 'img/icons/zoom-plus.png' %}"
+                            <a href="{{product.image.url}}" class="pop-up"><img src="{% static 'img/icons/zoom-plus.png' %}"
                                     alt=""></a>
                         </div>
                     </figure>
@@ -45,14 +45,6 @@
             
             {% else %}
                 {% include 'includes/no-result.html' %}
-                <div class="more-product">
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                            <h5 class="mb-3">Oops, No result found !</h5>
-                            <a href="{% url 'store:Home' %}" class="primary-btn">Go Back</a>
-                        </div>
-                    </div>
-                </div>
              {% endif %}
         </div>
     </div>

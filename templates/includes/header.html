@@ -31,7 +31,8 @@
             <nav class="main-menu mobile-menu">
                 <ul>
                     <li><a class="active" href="{% url 'store:Home' %}">Home</a></li>
-                    <li><a href="">Shop</a>
+                    <li><a href="{% url 'store:Shop' %}">Shop</a></li>
+                    <li><a href="">By Category</a>
                         <ul class="sub-menu">
                             {% for category in categories %}
                             <li><a href="{% url 'store:Category_Details' category.slug %}">{{category.title|title}}</a></li>
@@ -39,8 +40,7 @@
                         </ul>
                     </li>
                     <li><a href="./product-page.html">About</a></li>
-                    <li><a href="./check-out.html">Blog</a></li>
-                    <li><a href="./contact.html">Contact</a></li>
+                    <li><a href="{% url 'store:Contact' %}">Contact</a></li>
                 </ul>
             </nav>
         </div>

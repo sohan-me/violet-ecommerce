@@ -54,6 +54,10 @@ class UserForm(forms.ModelForm):
 
 	def __init__(self, *args, **kwargs):
 		super(UserForm, self).__init__(*args, **kwargs)
+
+		self.fields['first_name'].widget.attrs['placeholder'] = 'First Name'
+		self.fields['last_name'].widget.attrs['placeholder'] = 'Last Name'
+
 		for field in self.fields:
 			self.fields[field].widget.attrs['class']= 'form-control'
 
@@ -61,11 +65,21 @@ class UserProfileForm(forms.ModelForm):
 	
 	profile_image = forms.ImageField(required=False, error_messages={'Invalid':('Image Files Only.')}, widget=forms.FileInput)
 	class Meta:
-		
 		model = UserProfile
 		fields = ['phone', 'address_line', 'profile_image', 'city', 'state', 'country']
 
 	def __init__(self, *args, **kwargs):
 		super(UserProfileForm, self).__init__(*args, **kwargs)
+
+		self.fields['phone'].widget.attrs['placeholder'] = 'Phone'
+		self.fields['address_line'].widget.attrs['placeholder'] = 'Address'
+		self.fields['city'].widget.attrs['placeholder'] = 'City'
+		self.fields['state'].widget.attrs['placeholder'] = 'State'
+		self.fields['country'].widget.attrs['placeholder'] = 'Country'
+
 		for field in self.fields:
 			self.fields[field].widget.attrs['class']= 'form-control'
+
+
+
+

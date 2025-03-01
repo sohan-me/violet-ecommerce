@@ -10,9 +10,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="page-breadcrumb">
-                        <h3>Profile<span>.</span></h3>
-                    </div>
                 </div>
                 <div class="col-lg-8">
                     <img src="{% static 'img/add.jpg' %}" alt="">
@@ -34,8 +31,12 @@
                         <div class="col-lg-12 text-center mb-20">
                         <p><strong>Username</strong>: {{ current_user.username }}</p>
                         <p><strong>Email</strong>: {{ current_user.email }}</p>
-                        <p><strong>Phone:</strong>{{userprofile.phone}}</p>
-                        <p><strong>Address:</strong> {{ userprofile.address_line }}, {{ userprofile.city }}, {{ userprofile.state }}, {{ userprofile.country }}</p>
+                        <p><strong>Phone:</strong>{% if userprofile.phone %}{{userprofile.phone}}{% else %} N/A {% endif %}</p>
+                        <p><strong>Address:</strong> {% if userprofile.address_line %}
+                            {{ userprofile.address_line }}, {{ userprofile.city }}, {{ userprofile.state }}, {{ userprofile.country }}</p>
+                            {% else %}
+                                N/A
+                            {% endif %}
                         </div>
                         <div class="row">
                             <div class="col-lg-6 text-center">
@@ -44,7 +45,9 @@
                                 </a>
                             </div>
                             <div class="col-lg-6 text-center">
+                                <a href="">
                                 <button class="btn-block" type="submit">Orders</button>
+                                </a>
                             </div>
                         </div>
                         

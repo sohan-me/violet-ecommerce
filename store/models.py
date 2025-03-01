@@ -25,8 +25,8 @@ class Product(models.Model):
     title = models.CharField(max_length=250, unique=True)
     slug = models.SlugField(unique=True, max_length=250)
     featured = models.BooleanField(default=False)
+    image = models.ImageField(upload_to='product/food/', blank=True, null=True)
     price = models.FloatField()
-    thumbnail = models.URLField()
     description = models.TextField(null=True, blank=True, default='N/A')
     is_stock = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -54,6 +54,19 @@ class Slider(models.Model):
     def final_part(self):
         rest = self.title.split(' ')[1]
         return rest
+
+
+
+class Contact(models.Model):
+    first_name = models.CharField(max_length=25)
+    last_name = models.CharField(max_length=25, blank=True, null=True)
+    email = models.EmailField()
+    subject = models.CharField(max_length=300)
+    message = models.TextField()
+    mark_as_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.email
 
     
 

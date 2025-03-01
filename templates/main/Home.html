@@ -27,24 +27,22 @@
         </div>
 
 
-        <div class="row" id="product-list">     
-                {% for category in categories %}
+        <div class="row" id="product-list"> 
+            {% for category in categories %}
                 {% for product in category.products.all %}
-                <div class="col-lg-3 col-sm-6 mix {{category.slug}}">
-                <div class="single-product-item">
-                    <figure>
-                        <a href="{% url 'store:Product_Details' product.slug %}"><img style="height: 250px; width: 250px;" src="{{product.thumbnail}}" alt=""></a>
-                    </figure>
-                    <div class="product-text">
-                        <h6>{{product.title|truncatewords:6}}</h6>
-                        <p>${{product.price}}</p>
-                    </div>
-                </div>
-                </div>
-
+                        <div class="col-lg-3 col-sm-6 mix {{category.slug}}">
+                        <div class="single-product-item">
+                            <figure>
+                                <a href="{% url 'store:Product_Details' product.slug %}"><img style="height: 250px; width: 250px;" src="{{product.image.url}}" alt=""></a>
+                            </figure>
+                            <div class="product-text">
+                                <h6>{{product.title|truncatewords:6}}</h6>
+                                <p>${{product.price}}</p>
+                            </div>
+                        </div>
+                        </div>
                 {% endfor %}
-                {% endfor %}
-           
+            {% endfor %}
         </div>
           
  
@@ -72,7 +70,7 @@
                 <div class="col-lg-3 col-sm-6 mix">
                 <div class="single-product-item">
                     <figure>
-                        <a href="#"><img style="height: 250px; width: 250px;" src="{{product.thumbnail}}" alt=""></a>
+                        <a href="{% url 'store:Product_Details' product.slug %}"><img style="height: 250px; width: 250px;" src="{{product.image.url}}" alt=""></a>
                         <div class="p-status">{{product.category}}</div>
                     </figure>
                     <div class="product-text">
@@ -142,7 +140,7 @@
                         Aenean non felis dapibus, placerat libero auctor, ornare ante. Morbi quis ex eleifend,
                         sodales nulla vitae, scelerisque ante. Nunc id vulputate dui. Suspendisse consectetur rutrum
                         metus nec scelerisque. s</p>
-                    <a href="#" class="primary-btn look-btn">See More</a>
+                    <a href="{% url 'store:Shop' %}" class="primary-btn look-btn">See More</a>
                 </div>
             </div>
             <div class="col-lg-5 offset-lg-1">
