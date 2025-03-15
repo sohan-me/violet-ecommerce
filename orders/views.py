@@ -93,3 +93,11 @@ def CheckOut(request):
 
 def InitiatePayment(request):
 	return HttpResponse('Payment success')
+
+
+
+def OrderByUser(request):
+    orders = Order.objects.filter(user=request.user)
+    unpaid_orders = orders.objects.filter(status='Pending')
+    paid_orders = orders.objects.filter(status='Confirmed')
+    pass

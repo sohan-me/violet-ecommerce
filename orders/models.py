@@ -33,10 +33,23 @@ class Order(models.Model):
 
     def __str__(self):
         return self.order_number
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.status != 'Pending' or self.status != 'Cancelled':
+            self.is_ordered = True
+
+            order_products = self.order_product.all()
+            product_updates = []
+            for item in order_products:
+                item.product.stock_quantity -= item.quantity
+                product_updates.append(item.product)
+            Product.objects.bulk_update(product_updates, ['stock_quantity'])
 
 
 class OrderProduct(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_product')
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     product_price = models.FloatField()
@@ -51,6 +64,7 @@ class OrderProduct(models.Model):
 class Payment(models.Model):
     PAYMENT_METHOD = (
         ('SSLCommerz', 'SSLCommerz'),
+        ('Cash On Delivery', 'Cash On Delivery'),
     )
 
     user = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Product, Slider, Contact
+from .models import Category, Product, Slider, Contact, Lookbook
 
 # Register your models here.
 
@@ -8,7 +8,7 @@ class AdminCategoryView(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title', )}
 
 class AdminProductView(admin.ModelAdmin):
-    list_display = ['id', 'title', 'category', 'featured', 'price', 'updated_date', 'created_date']
+    list_display = ['id', 'title', 'category', 'featured', 'price', 'stock_quantity', 'updated_date', 'created_date']
     list_filter = ['category', 'price']
     list_editable = ['featured']
     prepopulated_fields = {'slug': ('title', )}
@@ -28,5 +28,5 @@ admin.site.register(Category, AdminCategoryView)
 admin.site.register(Product, AdminProductView)
 admin.site.register(Slider, AdminSliderView)
 admin.site.register(Contact, AdminContactView)
-
+admin.site.register(Lookbook)
 

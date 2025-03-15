@@ -1,28 +1,22 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
+from django.db.models import Q, Prefetch
+
 from .models import *
 from .forms import ContactForm
 from django.core.mail import EmailMessage
 from django.conf import settings
+
 # Create your views here.
 
 def Home(request):
     featured_categories = Category.objects.filter(featured=True)
-    categories = Category.objects.all().prefetch_related('products')
+    in_stock_products = Product.objects.filter(is_stock=True)
+    categories = Category.objects.all().prefetch_related(Prefetch('products', queryset=in_stock_products))
     featured_products = Product.objects.filter(featured=True)
     slider = Slider.objects.filter(show=True)
-    
-    paginator = Paginator(featured_products, 4)
-    page = request.GET.get('page')
-
-    try:
-        featured_products = paginator.page(page)
-    except PageNotAnInteger:
-        featured_products = paginator.page(1)
-    except EmptyPage:
-        featured_products = paginator.page(paginator.num_pages)
-
+    lookbook = Lookbook.objects.filter(show=True).first()
+    print(lookbook.title)
 
 
     context = {
@@ -30,12 +24,13 @@ def Home(request):
         'featured_products':featured_products,
         'slider':slider,
         'categories':categories,
+        'lookbook':lookbook,
     }
     return render(request, 'main/Home.html', context)
 
 
 def Shop(request):
-    products = Product.objects.all()
+    products = Product.objects.filter(is_stock=True)
     p_count = products.count()
     paginator = Paginator(products, 8)
     page = request.GET.get('page')
@@ -92,7 +87,8 @@ def Search(request):
     key = request.GET.get('key')
     products = Product.objects.filter(
         Q(title__icontains=key) |
-        Q(description__icontains=key)
+        Q(description__icontains=key),
+        is_stock=True
     )
     p_count = products.count()
 

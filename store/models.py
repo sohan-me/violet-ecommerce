@@ -28,12 +28,18 @@ class Product(models.Model):
     image = models.ImageField(upload_to='product/food/', blank=True, null=True)
     price = models.FloatField()
     description = models.TextField(null=True, blank=True, default='N/A')
+    stock_quantity = models.PositiveIntegerField()
     is_stock = models.BooleanField(default=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['id']
+    
+    def save(self, *args, **kwargs):
+        if self.stock_quantity == 0:
+            self.is_stock = False
+        super(Product, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -54,6 +60,16 @@ class Slider(models.Model):
     def final_part(self):
         rest = self.title.split(' ')[1]
         return rest
+
+
+class Lookbook(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    banner = models.ImageField(upload_to='banners/')
+    show = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title
 
 
 

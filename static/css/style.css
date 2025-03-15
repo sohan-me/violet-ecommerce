@@ -832,7 +832,16 @@ ol {
 -----------------------*/
 
 .lookbok-left {
-	padding-top: 105px;
+/*	padding-top: 105px;*/
+}
+
+.lookbok-section .row{
+	display: grid;
+	grid-template-columns:repeat(2, 1fr) ;
+	justify-content: space-between;
+	align-items: center;
+	gap: 40px;
+	padding: 20px 0;
 }
 
 .lookbok-left .section-title {
@@ -2029,7 +2038,7 @@ ol {
 .contact-widget .cw-item h5 {
 	color: #1e1e1e;
 	font-weight: 600;
-	margin-bottom: 30px;
+	margin-bottom: 5px;
 }
 
 .contact-widget .cw-item ul li {
@@ -2047,6 +2056,9 @@ ol {
 .map iframe {
 	width: 100%;
 }
+
+
+
 
 /* ---------------------------------- Responsive Media Styles ---------------------------------*/
 
@@ -2147,8 +2159,12 @@ ol {
 	.page-add .page-breadcrumb {
 		margin-bottom: 20px;
 	}
-	.lookbok-left {
-		margin-bottom: 30px;
+	.lookbok-section .row {
+	display: grid;
+	grid-template-columns:repeat(1, 1fr) ;
+	justify-content: space-between;
+	align-items: center;
+	gap: 40px;
 	}
 	.checkout-form .in-name {
 		text-align: left;
@@ -2219,8 +2235,15 @@ ol {
 	.single-slider-item h2 {
 		font-size: 42px;
 	}
-	.lookbok-left {
-		margin-bottom: 30px;
+	.lookbok-section {
+		padding: 0 15px;
+	}
+	.lookbok-section .row{
+		display: grid;
+		grid-template-columns:repeat(1, 1fr) ;
+		justify-content: space-between;
+		align-items: center;
+		gap: 40px;
 	}
 	.contact-form {
 		margin-bottom: 40px;
@@ -2364,3 +2387,18 @@ ol {
 		padding: 10px 0;
 	}
 }
+
+.p-btn {
+    color: #000000;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 16px 40px;
+    border: 2px solid #000000;
+    border-radius: 50px;
+    text-transform: uppercase;
+  }
+
+  .p-btn:hover{
+  	color: #000000;
+  }
