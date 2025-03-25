@@ -40,6 +40,13 @@ body {
 	background: none;
 }
 
+:root {
+  --pcolor: #ed1380;
+  --scolor: white;
+}
+
+
+
 h1,
 h2,
 h3,
@@ -47,15 +54,11 @@ h4,
 h5,
 h6 {
 	margin: 0;
-	color: #00A3B4;
+	color: var(--pcolor);
 	font-weight: 500;
 	font-family: "Montserrat", sans-serif;
 }
 
-:root {
-  --pcolor: #00A3B4;
-  --scolor: white;
-}
 
 h1 {
 	font-size: 70px;
@@ -132,8 +135,8 @@ ol {
 -----------------------*/
 
 .section-title h2 {
-	color: #1e1e1e;
-	font-size: 60px;
+	color: var(--pcolor);
+	font-size: 40px;
 	font-weight: 700;
 }
 
@@ -383,7 +386,7 @@ ol {
 	bottom: 7px;
 	width: 100%;
 	height: 2px;
-	background: #00a3b4;
+	background: var(--pcolor);
 	content: "";
 	opacity: 0;
 	-webkit-transform: all 0.3s;
