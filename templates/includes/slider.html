@@ -2,14 +2,14 @@
 <section class="hero-slider">
     <div class="hero-items owl-carousel">
         {% for slider in slider %}
-        <div class="single-slider-item set-bg" data-setbg="{{ slider.banner.url }}">
+        <div class="single-slider-item set-bg" data-setbg="{{ slider.banner.url }}" style="min-height: 600px;">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12">
+                   <!--  <div class="col-lg-12">
                         <h1>{{slider.initial_part}}</h1>
                         <h2>{{slider.final_part}}</h2>
                         <a href="{% url 'store:Shop' %}" class="primary-btn">See More</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

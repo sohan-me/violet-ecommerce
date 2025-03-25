@@ -47,7 +47,7 @@ h4,
 h5,
 h6 {
 	margin: 0;
-	color: #111111;
+	color: #00A3B4;
 	font-weight: 500;
 	font-family: "Montserrat", sans-serif;
 }
@@ -139,7 +139,7 @@ ol {
 	padding-bottom: 100px;
 }
 
-.text-white h1,
+/*.text-white h1,
 .text-white h2,
 .text-white h3,
 .text-white h4,
@@ -150,12 +150,13 @@ ol {
 .text-white li,
 .text-white a {
 	color: #fff;
-}
+}*/
 
 /* buttons */
 
 .primary-btn {
 	color: #fff;
+	background-color: #00A3B4;
 	display: inline-block;
 	font-size: 14px;
 	font-weight: 600;
@@ -832,7 +833,16 @@ ol {
 -----------------------*/
 
 .lookbok-left {
-	padding-top: 105px;
+/*	padding-top: 105px;*/
+}
+
+.lookbok-section .row{
+	display: grid;
+	grid-template-columns:repeat(2, 1fr) ;
+	justify-content: space-between;
+	align-items: center;
+	gap: 40px;
+	padding: 20px 0;
 }
 
 .lookbok-left .section-title {
@@ -2048,6 +2058,16 @@ ol {
 	width: 100%;
 }
 
+.login-container{
+	width: 500px;
+	margin: 0 auto;
+}
+.register-container{
+	width: 700px;
+	margin: 0 auto;
+}
+
+
 /* ---------------------------------- Responsive Media Styles ---------------------------------*/
 
 @media only screen and (min-width: 1500px) and (max-width: 1920px) {
@@ -2147,8 +2167,12 @@ ol {
 	.page-add .page-breadcrumb {
 		margin-bottom: 20px;
 	}
-	.lookbok-left {
-		margin-bottom: 30px;
+	.lookbok-section .row {
+	display: grid;
+	grid-template-columns:repeat(1, 1fr) ;
+	justify-content: space-between;
+	align-items: center;
+	gap: 40px;
 	}
 	.checkout-form .in-name {
 		text-align: left;
@@ -2219,8 +2243,15 @@ ol {
 	.single-slider-item h2 {
 		font-size: 42px;
 	}
-	.lookbok-left {
-		margin-bottom: 30px;
+	.lookbok-section {
+		padding: 0 15px;
+	}
+	.lookbok-section .row{
+		display: grid;
+		grid-template-columns:repeat(1, 1fr) ;
+		justify-content: space-between;
+		align-items: center;
+		gap: 40px;
 	}
 	.contact-form {
 		margin-bottom: 40px;
@@ -2301,6 +2332,10 @@ ol {
 /* Small : 320px */
 
 @media only screen and (max-width: 479px) {
+	.login-container, .register-container{
+	width: 80%;
+	margin: 0 auto;
+}
 	.header-section {
 		padding-left: 0;
 		padding-right: 0;
@@ -2364,3 +2399,18 @@ ol {
 		padding: 10px 0;
 	}
 }
+
+.p-btn {
+    color: #000000;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 16px 40px;
+    border: 2px solid #000000;
+    border-radius: 50px;
+    text-transform: uppercase;
+  }
+
+  .p-btn:hover{
+  	color: #000000;
+  }

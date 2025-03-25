@@ -19,28 +19,28 @@
             </div>
             {% if user.is_authenticated %}
             <div class="user-access">
-                <a href="{% url 'accounts:logout' %}">Logout</a>
+                <a href="{% url 'accounts:logout' %}" class="a-btn">Logout</a>
             </div>
             {% else %}
             <div class="user-access">
-                <a href="{% url 'accounts:signup' %}">Register</a>
-                <a href="{% url 'accounts:login' %}" class="in">Sign in</a>
+                <a href="{% url 'accounts:signup' %}" class="a-btn">Register</a>
+                <a href="{% url 'accounts:login' %}" class="in a-btn">Sign in</a>
             </div>
             {% endif %}
            
             <nav class="main-menu mobile-menu">
                 <ul>
-                    <li><a class="active" href="{% url 'store:Home' %}">Home</a></li>
-                    <li><a href="{% url 'store:Shop' %}">Shop</a></li>
-                    <li><a href="">By Category</a>
+                    <li><a class="{% if request.path == '/' %}active{% endif %}" href="{% url 'store:Home' %}">Home</a></li>
+                    <li><a class="{% if request.path == '/shop/' %}active{% endif %}" href="{% url 'store:Shop' %}">Shop</a></li>
+                    <li><a href="" class="{% if 'category' in request.path %}active{% endif %}">By Category</a>
                         <ul class="sub-menu">
                             {% for category in categories %}
                             <li><a href="{% url 'store:Category_Details' category.slug %}">{{category.title|title}}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
-                    <li><a href="{% url 'store:about' %}">About</a></li>
-                    <li><a href="{% url 'store:Contact' %}">Contact</a></li>
+                    <li><a href="{% url 'store:about' %}" class="{% if request.path == '/about/' %}active{% endif %}">About</a></li>
+                    <li><a href="{% url 'store:Contact' %}" class="{% if request.path == '/contact/' %}active{% endif %}">Contact</a></li>
                 </ul>
             </nav>
         </div>
