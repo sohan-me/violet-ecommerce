@@ -1,4 +1,4 @@
-#!/home/sas_corporation/Sohan/violet-ecommerce/env/bin/python3.12
+#!/home/sas_corporation/Sohan/violet-ecommerce/env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

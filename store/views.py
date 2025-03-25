@@ -12,11 +12,10 @@ from django.conf import settings
 def Home(request):
     featured_categories = Category.objects.filter(featured=True)
     in_stock_products = Product.objects.filter(is_stock=True)
-    categories = Category.objects.all().prefetch_related(Prefetch('products', queryset=in_stock_products))
+    categories = Category.objects.filter(featured=True).prefetch_related(Prefetch('products', queryset=in_stock_products))
     featured_products = Product.objects.filter(featured=True)
     slider = Slider.objects.filter(show=True)
     lookbook = Lookbook.objects.filter(show=True).first()
-    print(lookbook.title)
 
 
     context = {
@@ -145,4 +144,4 @@ def ContactUs(request):
 
 
 def AboutUs(request):
-    pass
+    return render(request, 'main/about.html')

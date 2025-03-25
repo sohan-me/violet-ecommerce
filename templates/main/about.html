@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} About - Kedismart {% endblock %}
+{% block style %}
+    <style>
+        body {
+            background-color: #fff;
+            font-family: "Outfit", sans-serif;
+        }
+
+        .about-section .banner {
+            background: url('https://amarpet.com/_next/image?url=%2Fassets%2Fbanner%2FPageBanner.jpg&w=1920&q=100') repeat;
+            text-align: center;
+            padding: 100px 0;
+        }
+        .content-text{
+            font-size: 1.1rem;
+        }
+        .emoji {
+            font-size: 1.2em;
+        }
+        .list{
+            display: grid;
+            gap: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="about-section">
+        <div class="">
+            <h2 class="fw-bolder fs-1 banner">About Us</h2>
+            <div class="container py-5 content-text">
+                <p>AmarPet now lets you buy all your favorite pet essentials with just a few clicks. Our pets are the
+                    cherished members of our household who need lots of love and care. That is why AmarPet brings you
+                    the largest online store with top-quality and curated pet care essentials, foods, accessories, and
+                    hygiene products that are available at your fingertips, anywhere, anytime.</p>
+                <p>So browse, and order away your required pet care goodies and ensure the well-being of your pets
+                    without any hassle. Because your pets deserve the best care too!</p>
+
+                <h4 class="fw-bold mt-4"><span class="emoji">🐶</span> What’s in store:</h4>
+                <ul class="list-unstyled list my-4">
+                    <li class="border p-2 rounded"><span class="emoji">🐾</span> <strong>A Paw-some Collection:</strong> Explore a vast array of
+                        pet products, from treats, toys to accessories – all in one place!</li>
+                    <li class="border p-2 rounded"><span class="emoji">🐾</span> <strong>Convenience all the Way:</strong> Order at your
+                        convenience, whether in moments of comfort or urgency and provide your pets with the best care.
+                    </li>
+                    <li class="border p-2 rounded"><span class="emoji">🐾</span> <strong>Trusted by Pet Parents:</strong> Rest assured in getting
+                        the best and top-tier products for your pets.</li>
+                    <li class="border p-2 rounded"><span class="emoji">🐾</span> <strong>Tail-Wagging Deals:</strong> Stay updated on offers,
+                        discounts, and deals that will make both of you and your pets hop for joy!</li>
+                </ul>
+
+                <p class="fw-bold">Start on your hassle-free pet care journey today!</p>
+
+                <h5 class="fw-bold mt-4">Legal Information:</h5>
+                <p>Kedismart Limited, Trade Licence: TTRAD/DNCC/010521/2023<br>
+                    BIN: 005894576-0101</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}

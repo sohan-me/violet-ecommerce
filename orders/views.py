@@ -78,7 +78,7 @@ def CheckOut(request):
         if payment_method == 'SSLCommerz':
             return redirect('orders:initiate_payment')
         else:
-            return redirect('store:Home')
+            return redirect('orders:orders_by_user')
 
     context = {
         'cart_items': user_cart_items,
@@ -97,7 +97,10 @@ def InitiatePayment(request):
 
 
 def OrderByUser(request):
-    orders = Order.objects.filter(user=request.user)
-    unpaid_orders = orders.objects.filter(status='Pending')
-    paid_orders = orders.objects.filter(status='Confirmed')
-    pass
+    orders = Order.objects.filter(user=request.user).prefetch_related('order_product').order_by('-created_at')
+
+    context = {
+        'orders':orders,
+    }
+
+    return render(request, 'orders/total_orders.html', context)

@@ -185,7 +185,7 @@ def DashBoard(request):
     current_user = request.user
     userprofile = UserProfile.objects.get(user=current_user)
     context = {'current_user':current_user, 'userprofile':userprofile}
-    return render(request, 'accounts/dashboard.html', context)
+    return render(request, 'accounts/profle.html', context)
 
 @login_required(login_url='accounts:login')
 def Update_Profile(request):

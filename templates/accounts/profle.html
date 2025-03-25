@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} My Profile - AmarPet {% endblock %}
+{% block style %}
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: "Outfit", sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        nav {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        nav strong {
+            color: #333;
+        }
+        .profile-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .profile-email {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .profile-info p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+        }
+        .profile-info strong {
+            color: #333;
+        }
+        .btn-edit-profile {
+            background: #00A3B4;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-edit-profile:hover {
+            background: #03919e;
+        }
+        .order-history-link {
+            color: #00A3B4;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .order-history-link:hover {
+            text-decoration: underline;
+            color: #03919e;
+        }
+    </style>
+{% endblock %}
+
+{% block content %} 
+    <div class="container pt-5">
+        <!-- Breadcrumb -->
+        <nav class="mb-3 fs-5">
+            <span>Home > My Account > <strong>My Profile</strong></span>
+        </nav>
+
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-header">
+                {% if userprofile %}
+                <img src="{{userprofile.profile_image.url}}" alt="Profile Avatar" class="profile-avatar">
+                {% else %}
+                <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D" alt="Profile Avatar" class="profile-avatar">
+                {% endif %}
+                <div>
+                    <p class="profile-name">{{ current_user.first_name }} {{ current_user.last_name }}</p>
+                    <p class="profile-email">{{ current_user.email }}</p>
+                </div>
+            </div>
+            <hr>
+            <div class="profile-info">
+                <p><strong>Phone:</strong> {% if userprofile.phone %}{{userprofile.phone}}{% else %} N/A {% endif %}</p>
+                <p><strong>Address:</strong>
+                    {% if userprofile.address_line %}
+                        {{ userprofile.address_line }}, {{ userprofile.city }}, {{ userprofile.state }}, {{ userprofile.country }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </p>
+                <p><strong>Member Since:</strong> {{current_user.date_joined}}</p>
+            </div>
+            <a href="{% url 'accounts:update_profile' %}">
+                <button class="btn-edit-profile mt-3">Edit Profile</button>
+            </a>
+        </div>
+
+        <!-- Order History Section -->
+        <div class="profile-section">
+            <h5 class="mb-3">Order History</h5>
+            <p>You can view your past orders by visiting the <a href="{% url 'orders:orders_by_user' %}" class="order-history-link">My Orders</a> page.</p>
+        </div>
+
+        <!-- Account Settings Section -->
+        <div class="profile-section">
+            <h5 class="mb-3">Account Settings</h5>
+            <ul style="list-style-type: none; padding: 0;">
+                <li class="mb-2"><a href="#" class="order-history-link">Change Password</a></li>
+                <li class="mb-2"><a href="#" class="order-history-link">Update Payment Methods</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+{% endblock %}

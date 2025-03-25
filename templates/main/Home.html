@@ -127,9 +127,9 @@
 
 <!-- Lookbok Section Begin -->
 <section class="c">
-    <div class="container">
-        <div class="row">
-            <div>
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6 order-2 order-lg-1">
                 <div class="">
                     <div class="section-title">
                         <h2>{{lookbook.title}}</h2>
@@ -138,7 +138,7 @@
                     <a href="{% url 'store:Shop' %}" class="p-btn">See More</a>
                 </div>
             </div>
-            <div>
+            <div class="col-lg-6 order-1 order-lg-2 mb-lg-0 mb-3">
                 <div class="lookbok-pic">
                     <img src="{{ lookbook.banner.url }}" alt="">
                 </div>

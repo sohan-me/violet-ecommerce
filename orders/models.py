@@ -37,7 +37,7 @@ class Order(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        if self.status != 'Pending' or self.status != 'Cancelled':
+        if self.status not in ['Pending', 'Cancelled']:
             self.is_ordered = True
 
             order_products = self.order_product.all()

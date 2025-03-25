@@ -11,6 +11,7 @@ urlpatterns = [
     path('category/<slug:slug>/', views.Category_Details, name='Category_Details'),
     path('search-result/', views.Search, name='search-products'),
     path('contact/', views.ContactUs, name='Contact'),
+    path('about/', views.AboutUs, name='about'),
 
 
 ]

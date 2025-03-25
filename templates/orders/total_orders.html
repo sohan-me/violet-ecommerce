@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} My Profile - Kedismart {% endblock %}
+{% block style %}
+ <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: "Outfit", sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* .container {
+            max-width: 900px;
+            margin: auto;
+            padding-top: 30px;
+        } */
+
+        nav {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        nav strong {
+            color: #333;
+        }
+
+        .filter-btns {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-btns button {
+            border: none;
+            background: transparent;
+            padding: 8px 10px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .filter-btns button.active,
+        .filter-btns button:hover {
+            background: #00A3B4;
+            color: white;
+        }
+
+        .order-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .order-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .order-status {
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 15px;
+            text-transform: uppercase;
+        }
+
+        .status-in-progress {
+            background: #ffebcc;
+            color: #d98c00;
+        }
+
+        .status-delivered {
+            background: #e6f9e6;
+            color: #28a745;
+        }
+
+        .status-cancelled {
+            background: #ffe6e6;
+            color: #dc3545;
+        }
+
+        .order-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .order-details p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .order-id {
+            font-size: 1rem;
+            color: #d9534f;
+        }
+
+        .order-price {
+            font-size: 1rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .order-date {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container pt-5">
+        <!-- Breadcrumb -->
+        <nav class="mb-3 fs-5">
+            <span>Home > My Account > <strong>My Orders</strong></span>
+        </nav>
+
+        <!-- Filter Buttons -->
+        <div class="filter-btns mb-3">
+            <button class="active" data-filter="all">All</button>
+            <button data-filter="Pending">In Progress</button>
+            <button data-filter="Delivered">Delivered</button>
+            <button data-filter="Cancelled">Cancelled</button>
+        </div>
+
+        <!-- Order Cards -->
+        {% for order in orders %}
+        <div class="order-card" data-status="{{ order.status }}">
+            <div class="d-flex align-items-center">
+                {% if order.status == 'Pending' %}
+                <span class="order-status status-in-progress me-3"> 🟠 {{order.status}}</span>
+                {% elif order.status == 'Delivered' %}
+                <span class="order-status status-delivered me-3"> 🟢 {{order.status}}</span>
+                {% elif order.status == 'Cancelled'%}
+                <span class="order-status status-cancelled me-3"> ❌ {{order.status}}</span>
+                {% endif %}
+                <span class="order-date">{{order.created_at}}</span>
+            </div>
+            {% for item in order.order_product.all %}
+            <div class="d-flex align-items-center mt-3">
+                <img style="width: 100px;"
+                    src="{{item.product.image.url}}"
+                    class="order-item me-3 w-5" alt="pet food">
+                <div class="order-details">
+                    <p class="order-id fw-bold">{{order.order_number}}</p>
+                    <p>{{item.product.title}}</p>
+                    <p class="order-price">₹ {{item.product.price}}</p>
+                </div>
+            </div>
+            {% endfor %}
+            <hr class="">
+        </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        // JavaScript for functional tabs
+        document.addEventListener("DOMContentLoaded", () => {
+            const filterButtons = document.querySelectorAll(".filter-btns button");
+            const orderCards = document.querySelectorAll(".order-card");
+
+            filterButtons.forEach(button => {
+                button.addEventListener("click", () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove("active"));
+                    // Add active class to clicked button
+                    button.classList.add("active");
+
+                    const filter = button.dataset.filter;
+
+                    orderCards.forEach(card => {
+                        if (filter === "all" || card.dataset.status === filter) {
+                            card.classList.remove("hidden");
+                        } else {
+                            card.classList.add("hidden");
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+{% endblock %}
