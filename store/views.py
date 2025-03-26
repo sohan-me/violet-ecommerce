@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q, Prefetch
-
+from django.contrib import messages
 from .models import *
 from .forms import ContactForm
 from django.core.mail import EmailMessage
@@ -136,7 +136,15 @@ def ContactUs(request):
             email_send.fail_silently = False
             email_send.send()
 
+            messages.success(request, 'Thanks for contacting us!')
             return redirect('store:Home')
+
+        else:
+            for field in form:
+                for error in field.errors:
+                    messages.error(request, error)
+
+            return redirect('store:contact')
 
     context = {'form':form}
     return render(request, 'main/contact.html', context)

@@ -1,0 +1,318 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Create Pet Profile - Kedismart {% endblock %}
+{% block style %}
+    <style>
+        :root {
+            --primary-color: #222;
+            --secondary-color: #ed1380;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --input-bg: #ffffff;
+        }
+
+        .pet_form {
+            background-color: var(--primary-color) !important;
+            min-height: 100vh;
+            padding: 2rem 0;
+/*            position: relative;*/
+            overflow-x: hidden;
+        }
+
+        /* Decorative paw prints */
+        .paw-print {
+            position: fixed;
+            background-image: url('https://amarpet.com/assets/pet-tag/essential-paw-right-mid.svg');
+            background-repeat: no-repeat;
+            background-size: contain;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .paw-1 {
+            right: 5%;
+            top: 20%;
+            width: 150px;
+            height: 150px;
+            transform: rotate(45deg);
+        }
+
+        .paw-2 {
+            left: 5%;
+            top: 40%;
+            width: 100px;
+            height: 100px;
+            transform: rotate(-30deg);
+        }
+
+        .paw-3 {
+            right: 15%;
+            bottom: 10%;
+            width: 120px;
+            height: 120px;
+            transform: rotate(15deg);
+        }
+
+        .paw-4 {
+            left: 10%;
+            bottom: 30%;
+            width: 80px;
+            height: 80px;
+            transform: rotate(60deg);
+        }
+
+        .container {
+            max-width: 900px !important;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 50px !important;
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            color: var(--secondary-color) !important;
+            font-weight: 700;
+            margin-bottom: 2rem !important;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            background-color: var(--input-bg);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            outline: none;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color) !important;
+            border: none;
+            padding: 10px 0;
+            font-weight: 600;
+            border-radius: 8px;
+            width: 100%;
+            transition: all 0.3s ease;
+            color: var(--bg-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-text {
+            color: #64748b;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Profile image styles */
+        .profile-image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-image-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: var(--bg-color);
+            border: 2px dashed var(--border-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .profile-image-preview::before {
+            content: "Upload Photo";
+            position: absolute;
+            color: var(--text-color);
+            font-size: 0.875rem;
+            text-align: center;
+            padding: 0.5rem;
+            background: rgba(180, 180, 180, 0.6);
+            opacity: 1; /* Show text by default */
+            transition: opacity 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .profile-image-preview:hover::before {
+            opacity: 1; /* Keep text visible on hover */
+        }
+
+        .profile-image-input {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90% !important;
+                padding: 2rem !important;
+            }
+            
+            .paw-print {
+                opacity: 0.05;
+            }
+            
+            .paw-1, .paw-2, .paw-3, .paw-4 {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+<!-- Add decorative paw prints -->
+<div class="paw-print paw-1"></div>
+<div class="paw-print paw-2"></div>
+<div class="paw-print paw-3"></div>
+<div class="paw-print paw-4"></div> 
+
+<div class="pet_form">
+<div class="container">
+    <h2><i class="fas fa-paw me-2"></i>Pet Profile Creation</h2>
+    <form id="pet-form">
+        <!-- Profile Image -->
+        <div class="profile-image-container">
+            <label for="image" class="profile-image-preview">
+                <img id="image-preview" src="#" alt="Pet Profile Picture" style="display: none;">
+            </label>
+            <input type="file" class="profile-image-input" id="image" name="image" accept="image/*" required>
+            <div class="form-text">Upload a clear photo of your pet (JPEG, PNG)</div>
+        </div>
+
+        <div class="form-group">
+            <label for="pet_name" class="form-label">Pet Name</label>
+            <input type="text" class="form-control" id="pet_name" name="pet_name" placeholder="Enter your pet's name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="pet_type" class="form-label">Pet Type</label>
+            <select class="form-select" id="pet_type" name="pet_type" required>
+                <option value="" disabled selected>Select Pet Type</option>
+                <option value="Dog">Dog</option>
+                <option value="Cat">Cat</option>
+                <option value="Bird">Bird</option>
+                <option value="Reptile">Reptile</option>
+                <option value="Rabbit">Rabbit</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="breed" class="form-label">Breed</label>
+            <select class="form-select" id="breed" name="breed" required>
+                <option value="" disabled selected>Select Breed</option>
+                <option value="Labrador">Labrador</option>
+                <option value="Persian">Persian</option>
+                <option value="Siamese">Siamese</option>
+                <option value="Beagle">Beagle</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dob" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="dob" name="dob" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="weight" class="form-label">Weight (kg)</label>
+                    <input type="number" class="form-control" id="weight" name="weight" step="0.1" placeholder="0.0">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="gender" class="form-label">Gender</label>
+            <select class="form-select" id="gender" name="gender" required>
+                <option value="" disabled selected>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="additional_note" class="form-label">Additional Notes</label>
+            <textarea class="form-control" id="additional_note" name="additional_note" 
+                      placeholder="Any special care instructions, allergies, or behaviors we should know about?"></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary mt-4">
+            Create Profile
+        </button>
+    </form>
+</div>
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+<!-- JavaScript -->
+<script>
+    const imageInput = document.getElementById("image");
+    const imagePreview = document.getElementById("image-preview");
+
+    // Show image preview when file is selected
+    imageInput.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.src = "#";
+            imagePreview.style.display = "none";
+        }
+    });
+</script>
+
+{% endblock %}

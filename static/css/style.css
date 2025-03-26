@@ -41,7 +41,9 @@ body {
 }
 
 :root {
-  --pcolor: #ed1380;
+  --pcolor: #e0196f;
+  --bcolor: #222;
+  --hcolor: #b50273;
   --scolor: white;
 }
 
