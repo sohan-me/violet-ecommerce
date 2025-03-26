@@ -38,12 +38,12 @@ class PetTag(models.Model):
 	pet_name = models.CharField(max_length=255)
 	pet_type = models.ForeignKey(PetType, on_delete=models.SET_NULL, null=True, blank=True)
 	breed = models.ForeignKey(Breed, on_delete=models.SET_NULL, null=True, blank=True)
-	image = models.ImageField(upload_to='pets/')
-	dob = models.DateField()
+	image = models.ImageField(upload_to='pets/', null=True, blank=True)
+	age = models.CharField(max_length=5, null=True, blank=True)
 	weight = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-	gender = models.CharField(choices=GENDER, max_length=20)
-	additional_note = models.TextField()
-	qr_code = models.CharField(max_length=30, unique=True, blank=True)
+	gender = models.CharField(choices=GENDER, max_length=20, null=True, blank=True)
+	additional_note = models.TextField(null=True, blank=True)
+	qr_code = models.CharField(max_length=30, unique=True, blank=True, null=True)
 	qr_image = models.ImageField(upload_to='pets/qrcodes/', null=True, blank=True)
 
 
@@ -64,7 +64,7 @@ class PetTag(models.Model):
 @receiver(post_save, sender=PetTag)
 def assign_qr_code(sender, instance, created, **kwargs):
 	if not instance.qr_code:
-		instance.qr_code = f'{self.pet_name.upper()}-{uuid.uuid4().hex[:8].upper()}'
+		instance.qr_code = f'{instance.pet_name.upper()}-{uuid.uuid4().hex[:8].upper()}'
 		instance.save()
 
 	if created or not instance.qr_image:

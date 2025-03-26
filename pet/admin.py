@@ -8,7 +8,7 @@ admin.site.register(Breed)
 
 @admin.register(PetTag)
 class PetTagAdmin(admin.ModelAdmin):
-	list_display = ['id', 'user', 'pet_name', 'pet_type', 'breed', 'dob', 'weight', 'gender']
+	list_display = ['id', 'user', 'pet_name', 'pet_type', 'breed', 'age', 'weight', 'gender']
 	list_display_links = ['id', 'pet_name', 'pet_type']
 	search_fields = ['pet_name']
 	list_filter = ['pet_type', 'gender']

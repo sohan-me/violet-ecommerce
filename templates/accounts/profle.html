@@ -112,6 +112,14 @@
             <a href="{% url 'accounts:update_profile' %}">
                 <button class="btn-edit-profile mt-3">Edit Profile</button>
             </a>
+
+            {% if pets %}
+                {% for pet in pets %}
+                    <a href="{% url 'pet:update_pet_tag' pet.id %}">
+                        <button class="btn-edit-profile mt-3">Edit {{pet.pet_name}} Profile</button>
+                    </a>
+                {% endfor %}
+            {% endif %}
         </div>
 
         <!-- Order History Section -->

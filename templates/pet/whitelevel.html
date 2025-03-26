@@ -1,0 +1,283 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Profile</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #222;
+            --secondary-color: #ed1380;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --input-bg: #ffffff;
+            --bg-color: #FE9730;
+        }
+
+        section {
+            background-color: var(--text-color);
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("{% static 'img/paw.svg' %}");
+            background-repeat: repeat;
+            background-size: 50px;
+            opacity: 0.05;
+
+        }
+
+        .p-container {
+            /* max-width: 400px; */
+            margin: 30px auto;
+            padding-bottom: 25px;
+            background-color: var(--input-bg);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+            border-radius: 25px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .profile-header {}
+
+        .profile-header img {
+            width: 100%;
+            /* border-radius: 50%; */
+            object-fit: contain;
+            margin-bottom: 15px;
+        }
+
+        .profile-header h3 {}
+
+        .profile-section-title {
+            font-size: 1.2rem;
+            border-bottom: var(--secondary-color) 2px solid;
+            max-width: max-content;
+            padding-bottom: 2px;
+        }
+
+        .p-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .profile-header p {}
+
+        .profile-info {
+            border-radius: 25px 25px 0px 0px;
+            margin-top: -50px;
+            position: relative;
+            background-color: #fff;
+        }
+
+        .profile-info-item {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+            background-color: #ed138010;
+            font-weight: 500;
+        }
+
+        .profile-info-item strong {
+            color: var(--dark-color);
+        }
+
+        .profile-info-item span {
+            color: var(--secondary-color);
+        }
+
+        .owner-info {
+            margin-top: 20px;
+        }
+
+        .owner-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .owner-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .owner-details {
+            flex: 1;
+        }
+
+        .owner-contact {
+            margin-top: 15px;
+        }
+
+        .owner-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .btn-edit {
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-edit:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        i {
+            color: var(--secondary-color);
+        }
+
+        /* Extra small devices (phones, 576px and down) */
+        @media (max-width: 576px) {
+            section {
+                padding: 0;
+            }
+
+            .p-container {
+                margin: 0 auto;
+                border-radius: 0;
+            }
+
+            .p-summary {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .owner-img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        /* Small devices (landscape phones, 576px and up) */
+        @media (min-width: 576px) and (max-width: 767.98px) {
+            .p-container {
+                max-width: 400px;
+            }
+        }
+
+        /* Medium devices (tablets, 768px and up) */
+        @media (min-width: 768px) and (max-width: 991.98px) {
+            .p-container {
+                max-width: 400px;
+            }
+        }
+
+        /* Large devices (desktops, 992px and up) */
+        @media (min-width: 992px) and (max-width: 1199.98px) {
+            .p-container {
+                max-width: 400px;
+            }
+        }
+
+        /* Extra large devices (large desktops, 1200px and up) */
+        @media (min-width: 1200px) {
+            .p-container {
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="p-container">
+            <div class="profile-header">
+                <img id="profile-image" src="{{pet.image.url}}"
+                    alt="Pet Profile Picture">
+            </div>
+
+            <!-- Profile Information -->
+            <div class="profile-info p-4">
+                <h3 id="profile-name fw-bold">{{pet.pet_name}}</h3>
+                <p id="profile-type" class="fw-medium">{{pet.pet_type}} · {{pet.breed}}</p>
+                <div class="p-summary">
+                    <div class="profile-info-item">
+                        <strong>Age</strong><br>
+                        <span id="profile-age">{{pet.age}} years</span>
+                    </div>
+                    <div class="profile-info-item">
+                        <strong>Weight</strong><br>
+                        <span id="profile-weight">{{pet.weight}}</span>
+                    </div>
+                    <div class="profile-info-item">
+                        <strong>Gender</strong><br>
+                        <span id="profile-gender">{{pet.gender}}</span>
+                    </div>
+                </div>
+                <h5 class="profile-section-title">About</h5>
+                <p class="">
+                    {{pet.additional_note}}
+                </p>
+                <h5 class="profile-section-title">Owner Information</h5>
+                <div class="owner-info">
+                    <div class="owner-profile">
+                        <img src="{{owner_profile.profile_image.url}}" alt="Owner Profile" class="owner-img">
+                        <div class="owner-details">
+                            <h6 class="fw-bold mb-1">{{owner.full_name}}</h6>
+                        </div>
+                    </div>
+                    <div class="owner-contact">
+                        <div class="owner-contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>{{owner.email}}</span>
+                        </div>
+                        <div class="owner-contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>{{owner_profile.phone}}</span>
+                        </div>
+                        <div class="owner-contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>{{owner_profile.address_line}}</span>
+                        </div>
+                    </div>
+                </div>
+                <h5 class="profile-section-title">Scan Me</h5>
+                <img style="margin: 0 auto;" width="100%" height="100%"
+                    src="{{pet.qr_image.url}}" alt="">
+                <div class="text-center mt-4">
+                    <p class="text-muted small">© 2025 Kedismart. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>

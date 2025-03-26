@@ -12,6 +12,7 @@ from django.conf import settings
 from django.contrib import messages, auth
 from cart.views import _cart_id
 from cart.models import Cart, CartItem
+from pet.models import PetTag
 # Create your views here.
 
 def Log_In(request):
@@ -184,7 +185,9 @@ def Reset_Password_Process(request):
 def DashBoard(request):
     current_user = request.user
     userprofile = UserProfile.objects.get(user=current_user)
-    context = {'current_user':current_user, 'userprofile':userprofile}
+    pets = PetTag.objects.filter(user=request.user)
+
+    context = {'current_user':current_user, 'userprofile':userprofile, 'pets':pets}
     return render(request, 'accounts/profle.html', context)
 
 @login_required(login_url='accounts:login')
