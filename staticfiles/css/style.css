@@ -40,6 +40,15 @@ body {
 	background: none;
 }
 
+:root {
+  --pcolor: #7462F3;
+  --bcolor: #222;
+  --hcolor: #4800FF;
+  --scolor: white;
+}
+
+
+
 h1,
 h2,
 h3,
@@ -47,11 +56,10 @@ h4,
 h5,
 h6 {
 	margin: 0;
-	color: #00A3B4;
+	color: var(--pcolor);
 	font-weight: 500;
 	font-family: "Montserrat", sans-serif;
 }
-
 
 
 h1 {
@@ -110,6 +118,12 @@ ol {
 	padding: 0;
 	margin: 0;
 }
+.a-btn{
+	background: var(--pcolor);
+	color: var(--scolor);
+	padding: 0px 10px;
+	border-radius: 10px;
+}
 
 @font-face {
 	font-family: "FuturaBT-Book";
@@ -123,8 +137,8 @@ ol {
 -----------------------*/
 
 .section-title h2 {
-	color: #1e1e1e;
-	font-size: 60px;
+	color: var(--pcolor);
+	font-size: 40px;
 	font-weight: 700;
 }
 
@@ -318,7 +332,7 @@ ol {
 }
 
 .inner-header .user-access a {
-	color: #1e1e1e;
+/*	color: #1e1e1e;*/
 	font-size: 16px;
 	display: inline-block;
 	font-weight: 500;
@@ -327,7 +341,7 @@ ol {
 }
 
 .inner-header .user-access a.in {
-	color: #838383;
+/*	color: #838383;*/
 	margin-left: 15px;
 	position: relative;
 }
@@ -336,7 +350,7 @@ ol {
 	position: absolute;
 	left: -13px;
 	top: 1px;
-	color: #1e1e1e;
+/*	color: #1e1e1e;*/
 	content: "/";
 }
 
@@ -374,7 +388,7 @@ ol {
 	bottom: 7px;
 	width: 100%;
 	height: 2px;
-	background: #1e1e1e;
+	background: var(--pcolor);
 	content: "";
 	opacity: 0;
 	-webkit-transform: all 0.3s;
@@ -768,7 +782,7 @@ ol {
 }
 
 .product-filter .product-controls li.mixitup-control-active {
-	color: #1e1e1e;
+	color: var(--pcolor);
 }
 
 .product-filter .product-controls li:hover {
@@ -1081,7 +1095,7 @@ ol {
 }
 
 .page-add .page-breadcrumb h2 span {
-	color: #B0BCC2;
+	color: var(--pcolor);
 }
 
 .page-add .page-breadcrumb a {

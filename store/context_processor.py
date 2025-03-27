@@ -1,5 +1,6 @@
-from .models import Category
+from .models import Category, StoreDetails
 
 def categories(request):
     categories = Category.objects.all()
-    return {'categories': categories}
+    store_details = StoreDetails.objects.all().first()
+    return {'categories': categories, 'store_details':store_details}

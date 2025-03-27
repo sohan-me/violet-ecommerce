@@ -3,6 +3,22 @@ from django.core.exceptions import ValidationError
 
 # Create your models here.
 
+class StoreDetails(models.Model):
+    trade_license = models.CharField(max_length=200, null=True, blank=True)
+    brand_bin = models.CharField(max_length=50, null=True, blank=True)
+    facebook = models.URLField(null=True, blank=True)
+    instagram = models.URLField(null=True, blank=True)
+    twitter = models.URLField(null=True, blank=True)
+    youtube = models.URLField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'Store Detail'
+        verbose_name_plural='Store Details'
+
+    def __str__(self):
+        return self.trade_license if self.trade_license else 'Store Details' 
+
+
 class Category(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(unique=True, max_length=200)

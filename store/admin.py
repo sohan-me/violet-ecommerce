@@ -1,7 +1,12 @@
 from django.contrib import admin
-from .models import Category, Product, Slider, Contact, Lookbook
+from .models import Category, Product, Slider, Contact, Lookbook, StoreDetails
 
 # Register your models here.
+
+@admin.register(StoreDetails)
+class StoreDetailsAdmin(admin.ModelAdmin):
+    list_display = ['id', 'trade_license', 'brand_bin', 'facebook', 'instagram', 'twitter', 'youtube']
+
 
 class AdminCategoryView(admin.ModelAdmin):
     list_display = ['id', 'title', 'featured', 'created_date']

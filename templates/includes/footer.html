@@ -1,53 +1,39 @@
+{% load static %}
 <!-- Footer Section Begin -->
 <footer class="footer-section spad">
     <div class="container">
         <div class="footer-widget">
             <div class="row">
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-4 col-sm-8" style="justify-content: center; display: flex; justify-items: center;">
                     <div class="single-footer-widget">
-                        <h4>About us</h4>
+                        <h4><img src="{% static 'kedi.jpg' %}"></h4>
                         <ul>
-                            <li>About Us</li>
-                            <li>Community</li>
-                            <li>Jobs</li>
-                            <li>Shipping</li>
-                            <li>Contact Us</li>
+                            <li>
+                                <p style="color: white;">Your pet's happiness is our priority. Kedismart delivers quality pet supplies and expert advice directly to you. We offer a wide range of products to ensure your pets thrive. Join our community and experience the convenience of online pet care. Copyright © 2025 Kedismart.</p>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-4 col-sm-8" style="justify-content: left; display: flex; justify-items: left;">
                     <div class="single-footer-widget">
-                        <h4>Customer Care</h4>
+                        <h4>Quick Links</h4>
                         <ul>
-                            <li>Search</li>
-                            <li>Privacy Policy</li>
-                            <li>2019 Lookbook</li>
-                            <li>Shipping & Delivery</li>
-                            <li>Gallery</li>
+                            <li><a href="{% url 'store:Home' %}" style="color: white;">Home</a></li>
+                            <li><a href="{% url 'store:about' %}" style="color: white;">About Us</a></li>
+                            <li><a href="{% url 'store:Shop' %}" style="color: white;">Shop</a></li>
+                            <li><a href="{% url 'pet:pet_tag' %}" style="color: white;">Pet Tag</a></li>
+                            <li><a href="{% url 'store:Contact' %}" style="color: white;">Contact Us</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-4 col-sm-8" style="justify-content: left; display: flex; justify-items: left;">
                     <div class="single-footer-widget">
-                        <h4>Our Services</h4>
+                        <h4>Category Links</h4>
                         <ul>
-                            <li>Free Shipping</li>
-                            <li>Free Returnes</li>
-                            <li>Our Franchising</li>
-                            <li>Terms and conditions</li>
-                            <li>Privacy Policy</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h4>Information</h4>
-                        <ul>
-                            <li>Payment methods</li>
-                            <li>Times and shipping costs</li>
-                            <li>Product Returns</li>
-                            <li>Shipping methods</li>
-                            <li>Conformity of the products</li>
+                            {% for category in categories %}
+                            <li><a href="{% url 'store:Category_Details' category.slug %}" style="color: white;">{{category.title|title}}</a></li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -56,19 +42,19 @@
     </div>
     <div class="social-links-warp">
         <div class="container">
-            <div class="social-links">
-                <a href="" class="instagram"><i class="fa fa-instagram"></i><span>instagram</span></a>
-                <a href="" class="pinterest"><i class="fa fa-pinterest"></i><span>pinterest</span></a>
-                <a href="" class="facebook"><i class="fa fa-facebook"></i><span>facebook</span></a>
-                <a href="" class="twitter"><i class="fa fa-twitter"></i><span>twitter</span></a>
-                <a href="" class="youtube"><i class="fa fa-youtube"></i><span>youtube</span></a>
-                <a href="" class="tumblr"><i class="fa fa-tumblr-square"></i><span>tumblr</span></a>
+            <div class="social-links" style="justify-items: center; justify-content: center; display: flex;">
+
+                <a href="{{store_details.instagram}}" class="instagram"><i class="fa fa-instagram"></i><span>instagram</span></a>
+                <a href="{{store_details.faecbook}}" class="facebook"><i class="fa fa-facebook"></i><span>facebook</span></a>
+                <a href="{{store_details.twitter}}" class="twitter"><i class="fa fa-twitter"></i><span>twitter</span></a>
+                <a href="{{store_details.youtube}}" class="youtube"><i class="fa fa-youtube"></i><span>youtube</span></a>
             </div>
         </div>
+    </div>
 
 <div class="container text-center pt-5">
             <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This Application is made <i class="icon-heart color-danger" aria-hidden="true"></i> by <a href="https://github.com/sohan-me" target="_blank">Noob</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
         </div>
 

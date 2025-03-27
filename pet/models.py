@@ -46,6 +46,9 @@ class PetTag(models.Model):
 	qr_code = models.CharField(max_length=30, unique=True, blank=True, null=True)
 	qr_image = models.ImageField(upload_to='pets/qrcodes/', null=True, blank=True)
 
+	class Meta:
+		verbose_name = 'Pet'
+		verbose_name_plural = 'Pets'
 
 	def get_absolute_url(self):
 		return reverse('pet:pet_by_qr', kwargs={'qr_code': self.qr_code})

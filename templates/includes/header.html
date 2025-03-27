@@ -31,6 +31,7 @@
             <nav class="main-menu mobile-menu">
                 <ul>
                     <li><a class="{% if request.path == '/' %}active{% endif %}" href="{% url 'store:Home' %}">Home</a></li>
+                    <li><a class="{% if request.path == '/pet-tag/' %}active{% endif %}" href="{% url 'pet:pet_tag' %}">Smart Pet Tag</a></li>
                     <li><a class="{% if request.path == '/shop/' %}active{% endif %}" href="{% url 'store:Shop' %}">Shop</a></li>
                     <li><a href="" class="{% if 'category' in request.path %}active{% endif %}">By Category</a>
                         <ul class="sub-menu">

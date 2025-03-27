@@ -41,9 +41,9 @@ body {
 }
 
 :root {
-  --pcolor: #e0196f;
+  --pcolor: #7462F3;
   --bcolor: #222;
-  --hcolor: #b50273;
+  --hcolor: #4800FF;
   --scolor: white;
 }
 
@@ -2151,7 +2151,13 @@ ol {
 		padding-top: 3px;
 	}
 }
+.slicknav_menu{
+	background-color: #fff;
+}
 
+.slicknav_nav a {
+	color: black;
+}
 /* Tablet Device : 768px */
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {

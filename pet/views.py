@@ -6,6 +6,11 @@ from django.contrib.auth.decorators import login_required
 from accounts.models import UserProfile
 # Create your views here.
 
+def PetView(request):
+	return render(request, 'pet/pet_main.html')
+
+
+
 def PetQRView(request, qr_code):
 	pet = get_object_or_404(PetTag, qr_code=qr_code)
 	owner_profile = get_object_or_404(UserProfile, user=pet.user)
